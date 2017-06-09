@@ -182,9 +182,9 @@ class MainActivity : AppCompatActivity() {
             try {
 
                 val service = ConversationService(ConversationService.VERSION_DATE_2017_02_03)
-                service.setUsernameAndPassword("55b8fedf-0697-4922-bd29-fc73e8e56681", "GedpjiR7Tin1")
+                service.setUsernameAndPassword("Your Watson service UserName", "Your watson service PassWord")
                 val newMessage = MessageRequest.Builder().inputText(inputmessage).context(context).build()
-                val response = service.message("6733904e-8f2c-4bae-838b-7e4e2b8891d6", newMessage).execute()
+                val response = service.message("Your Workspace Id", newMessage).execute()
 
                 //Passing Context of last conversation
                 if (response!!.context != null) {

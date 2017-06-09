@@ -4,6 +4,10 @@
 
 [![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin)
 
+*BUILT USING IDE*
+
+Android Studio 3.0 Canary 3
+
 WatBot is an IBM Watson powered ChatBot running on <a href="http://vidyasagarmsc.com/tag/android/" target="_blank">Android</a> and using Conversation Service on IBM <a href="http://vidyasagarmsc.com/category/cloud/" target="_blank">Bluemix</a> (an open standards, cloud platform for building, running, and managing apps and services).
 <p align="center"><img src="images/WatBot_5X.png" width="350" /></p>
 
