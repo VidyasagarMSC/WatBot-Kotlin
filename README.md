@@ -1,6 +1,8 @@
-# WatBot - An Android ChatBot powered by IBM Watson
+# WatBot-Kotlin is an Android ChatBot written in Kotlin and powered by IBM Watson
 
-[![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot)
+⚠️ WORK IN PROGRESS
+
+[![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin)
 
 WatBot is an IBM Watson powered ChatBot running on <a href="http://vidyasagarmsc.com/tag/android/" target="_blank">Android</a> and using Conversation Service on IBM <a href="http://vidyasagarmsc.com/category/cloud/" target="_blank">Bluemix</a> (an open standards, cloud platform for building, running, and managing apps and services).
 <p align="center"><img src="images/WatBot_5X.png" width="350" /></p>
@@ -13,7 +15,7 @@ Android Studio is the Official IDE for Android. Android Studio provides the fast
 Clone the [repo](https://github.com/VidyasagarMSC/WatBot) and import the code in Android Studio,
 
 ```
-git clone https://github.com/VidyasagarMSC/WatBot.git
+git clone https://github.com/VidyasagarMSC/WatBot-Kotlin.git
 ```
 
 ## Creation of Conversation Service
@@ -195,14 +197,14 @@ compile 'com.ibm.watson.developer_cloud:conversation:3.8.0'
 * Create a Watson Text to Speech(TTS) service on [Bluemix](https://console.ng.bluemix.net/catalog/services/text-to-speech/?taxonomyNavigation=apps) 
 * Navigate to Service Credentials tab and click on "View Credentials".
 
-On Line 68 of MainActivity.java, replace the username and password placeholders with the TTS service credentials
+On Line 68 of MainActivity.kt, replace the username and password placeholders with the TTS service credentials
 
 ```
 service.setUsernameAndPassword("Your Text-to-Speech service username", "Your Text-to-Speech password");
 ```
 * Build and Run your app.
 
-Now when you TAP on any message, the text will be heard via a Voice (Voice.EN_LISA). You can change the voice formats in the code (Lines 82-84 0f MainActivity.java)
+Now when you TAP on any message, the text will be heard via a Voice (Voice.EN_LISA). You can change the voice formats in the code of MainActivity.kt
 
 <strong>Note: </strong> The required gradle entries for TTS is already included in the build.gradle file 
 ```
