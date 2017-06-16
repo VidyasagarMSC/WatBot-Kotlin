@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     // Sending a message to Watson Conversation Service
     private fun sendMessage() {
 
-        val inputmessage = this.inputMessage!!.toString();//.text.toString() { it <= ' ' }
+        val inputmessage = this.inputMessage!!.text.toString();//.text.toString() { it <= ' ' }
         if (!this.initialRequest) {
             val inputMessage = Message()
             inputMessage.message = inputmessage
