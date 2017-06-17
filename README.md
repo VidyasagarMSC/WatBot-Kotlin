@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin)
 
-Converted to Kotlin from the Java version of the [Watbot](https://github.com/VidyasagarMSC/WatBot)
+Converted to Kotlin from the Java version of the [WatBot](https://github.com/VidyasagarMSC/WatBot)
 
 *BUILT USING Android Studio 3.0 Canary 3*
 
@@ -42,7 +42,7 @@ Check the “Pricing Plans” for data limits for the Conversation service</li>
 
 
 <h3>Creating a Workspace</h3>
-You use the Conversation tool to create workspaces by either creating a new workspace from scratch, or  by importing a workspace from a [JSON](https://github.com/VidyasagarMSC/WatBot/blob/master/sample.json) file. You can also duplicate an existing workspace within the same service instance.
+You use the Conversation tool to create workspaces by either creating a new workspace from scratch, or  by importing a workspace from a [JSON file](https://github.com/VidyasagarMSC/WatBot/blob/master/sample.json) file. You can also duplicate an existing workspace within the same service instance.
 <ol>
  	<li>If the Service Details page is not already open, click your Conversation service instance on the Bluemix console. (When you create a service instance, the Service Details page displays.)</li>
  	<li>On the “Service Details” page, scroll down to <strong>Conversation tooling</strong> and click <strong>Launch tool</strong>.</li>
