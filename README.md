@@ -1,12 +1,10 @@
 # WatBot-Kotlin is an Android ChatBot written in Kotlin and powered by IBM Watson
 
-⚠️ WORK IN PROGRESS
-
 [![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin)
 
-*BUILT USING IDE*
+Converted to Kotlin from the Java version of the [Watbot](https://github.com/VidyasagarMSC/WatBot)
 
-Android Studio 3.0 Canary 3
+*BUILT USING Android Studio 3.0 Canary 3*
 
 WatBot is an IBM Watson powered ChatBot running on <a href="http://vidyasagarmsc.com/tag/android/" target="_blank">Android</a> and using Conversation Service on IBM <a href="http://vidyasagarmsc.com/category/cloud/" target="_blank">Bluemix</a> (an open standards, cloud platform for building, running, and managing apps and services).
 <p align="center"><img src="images/WatBot_5X.png" width="350" /></p>
@@ -16,7 +14,7 @@ Check this [blog post](http://vidyasagarmsc.com/an-android-chatbot-powered-by-ib
 <h2>Coding the app on Android Studio</h2>
 Android Studio is the Official IDE for Android. Android Studio provides the fastest tools for building apps on every type of Android device.
 
-Clone the [repo](https://github.com/VidyasagarMSC/WatBot) and import the code in Android Studio,
+Clone the repo and import the code in Android Studio,
 
 ```
 git clone https://github.com/VidyasagarMSC/WatBot-Kotlin.git
