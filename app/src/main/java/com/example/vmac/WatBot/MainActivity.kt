@@ -62,13 +62,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        inputMessage = findViewById(R.id.message) as EditText
-        btnSend = findViewById(R.id.btn_send) as ImageButton
-        btnRecord = findViewById(R.id.btn_record) as ImageButton
+        inputMessage = findViewById<EditText>(R.id.message) as EditText
+        btnSend = findViewById<ImageButton>(R.id.btn_send) as ImageButton
+        btnRecord = findViewById<ImageButton>(R.id.btn_record) as ImageButton
         val customFont = "Montserrat-Regular.ttf"
         val typeface = Typeface.createFromAsset(assets, customFont)
         inputMessage!!.typeface = typeface
-        recyclerView = findViewById(R.id.recycler_view) as RecyclerView
+        recyclerView = findViewById<RecyclerView>(R.id.recycler_view) as RecyclerView
 
         messageArrayList = ArrayList()
         mAdapter = ChatAdapter(messageArrayList as ArrayList<Message>)
@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 return
             }
         }
-        if (!permissionToRecordAccepted) finish()
+        //if (!permissionToRecordAccepted) finish()
 
     }
 

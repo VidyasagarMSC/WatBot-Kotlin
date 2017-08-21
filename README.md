@@ -1,237 +1,195 @@
-# WatBot-Kotlin is an Android ChatBot written in Kotlin and powered by IBM Watson
+# Finance Trade
 
-[![Build Status](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin.svg?branch=master)](https://travis-ci.org/VidyasagarMSC/WatBot-Kotlin)
+[![Build Status](https://travis-ci.org/IBM-Bluemix/finance-trade.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/finance-trade)
+![Bluemix Deployments](https://deployment-tracker.mybluemix.net/stats/e13ee7de3df5bc6cf89950a82ef7a248/badge.svg)
 
-Converted to Kotlin from the Java version of the [WatBot](https://github.com/VidyasagarMSC/WatBot)
+FinTrade is a Node.js application that uses IBM Financial services and Watson services.  
 
-*BUILT USING Android Studio 3.0 Canary 3*
+The application is a modern portfolio manager that provides real-time insights into how news all around the world can impact the investment to any given portfolio.
 
-WatBot is an IBM Watson powered ChatBot running on <a href="http://vidyasagarmsc.com/tag/android/" target="_blank">Android</a> and using Conversation Service on IBM <a href="http://vidyasagarmsc.com/category/cloud/" target="_blank">Bluemix</a> (an open standards, cloud platform for building, running, and managing apps and services).
-<p align="center"><img src="images/WatBot_5X.png" width="350" /></p>
+# Overview
 
-Check this [blog post](http://vidyasagarmsc.com/an-android-chatbot-powered-by-ibm-watson/) for step-by-step instructions and also to see it in action.
+The project deploys one Cloud Foundry application and uses:
+   * [Investment Portfolio](https://console.bluemix.net/catalog/services/fss-portfolio-service)
+   * [Discovery](https://console.bluemix.net/catalog/services/discovery) and the pre-enriched News dataset
+   * [Predictive Market Scenarios](https://console.bluemix.net/catalog/services/fss-predictive-scenario-analytics-service)
+   * [Simulated Instrument Analytics](https://console.bluemix.net/catalog/services/fss-scenario-analytics-service)
 
-<h2>Coding the app on Android Studio</h2>
-Android Studio is the Official IDE for Android. Android Studio provides the fastest tools for building apps on every type of Android device.
+   ![architecture](./architecture.png)
 
-Clone the repo and import the code in Android Studio,
+The application uses the financial services to analyze a stock portfolio in regards to various risk factors. Risk factors include things like currency fluctuations or changes in the price of oil and gold.
 
-```
-git clone https://github.com/VidyasagarMSC/WatBot-Kotlin.git
-```
+   ![flow](./flow.png)
 
-## Creation of Conversation Service
+1. The user selects a risk factor to consider.
+1. Using Watson Discovery, the app looks for articles related to the risk factor.
+1. The app computes a shock value based on the sentiment of the articles.
+1. Then it calls the Predictive Market Scenarios service to create conditional scenarios to model how, given a change to a subset of factors the broader set of market factors are expected to change.
+1. Finally it computes analytics on the portfolio stocks under the given scenarios.
 
-Watson Conversation combines a number of cognitive techniques to help you build and train a bot - defining intents and entities and crafting dialog to simulate conversation.
+## Deploying the app automatically in Bluemix
 
-![Watson Conversation Service Overview](https://github.com/VidyasagarMSC/WatBot/blob/initial/Images/Watson_Conversation_Service.png)
+The app comes with a toolchain you can use to deploy the solution with few clicks. If you want to deploy it manually, you can skip this section.
 
-<h3>Getting started</h3>
-Before you can start using the Conversation service, log in to IBM® Bluemix® and create a service instance.
-<ol>
- 	<li>Log in to Bluemix and navigate to the Conversation service:
-<ul>
- 	<li>Don’t have Bluemix account? <a title="(Opens in a new tab or window)" href="https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/" target="_blank">Sign up</a> to create a free trial account.</li>
- 	<li>Have a Bluemix account? Use <a title="(Opens in a new tab or window)" href="https://console.ng.bluemix.net/catalog/services/conversation" target="_blank">this link</a>.</li>
-</ul>
-</li>
- 	<li>In the <strong>Service name</strong> field, type a unique name for your new instance of the Conversation service.
-Check the “Pricing Plans” for data limits for the Conversation service</li>
- 	<li>Click <strong>Create</strong>. You’ll see details about your new instance in the “Service Details” page.</li>
-</ol>
+1. **Ensure your organization has enough quota for one web application using 256MB of memory and 4 services.**
 
+1. Click ***Deploy to Bluemix*** to start the Bluemix DevOps wizard:
 
-<h3>Creating a Workspace</h3>
-You use the Conversation tool to create workspaces by either creating a new workspace from scratch, or  by importing a workspace from a <a href="https://github.com/VidyasagarMSC/WatBot/blob/master/sample.json">JSON file</a>. You can also duplicate an existing workspace within the same service instance.
-<ol>
- 	<li>If the Service Details page is not already open, click your Conversation service instance on the Bluemix console. (When you create a service instance, the Service Details page displays.)</li>
- 	<li>On the “Service Details” page, scroll down to <strong>Conversation tooling</strong> and click <strong>Launch tool</strong>.</li>
- 	<li>Click <strong>Create</strong> to create a new workspace.</li>
- 	<li>Specify the details for the new workspace:
-<ul>
- 	<li><strong>Name</strong>: A name no more than 64 characters in length. This value is required.</li>
- 	<li><strong>Description</strong>: A description no more than 128 characters in length.</li>
- 	<li><strong>Language</strong>: The language of the user input the workspace will be trained to understand. The service supports Brazilian Portuguese, English, French, Italian, and Spanish.</li>
-</ul>
-</li>
- 	<li>Click <strong>Create</strong>. The new workspace is created and now appears as a tile on the Workspaces page.</li>
-</ol>
-<h3>Creating an intent</h3>
-You use the Conversation tool to create intents. The number of intents and examples you can create in a single service instance depends on your Conversation service plan:
+   [![Deploy To Bluemix](https://console.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.bluemix.net/devops/setup/deploy/?repository=https://github.com/IBM-Bluemix/finance-trade&branch=master)
 
-Create some intents.
-<ol>
- 	<li>In the Conversation tool, open your workspace and then click the <strong>Intents</strong> tab.</li>
- 	<li>Click <strong>Create new</strong>.</li>
- 	<li>In the Intent name field, type a descriptive name for the intent. The intent name can contain letters (in Unicode), numbers, underscores, hyphens, and dots. Intent names cannot contain spaces and must not exceed 128 characters. The following are examples of intent names:
-<ul>
- 	<li><code>#weather_conditions</code></li>
- 	<li><code>#pay_bill</code></li>
- 	<li><code>#escalate_to_agent</code></li>
-</ul>
-<strong>Tip</strong>: Don’t include the <code>#</code> character in the intent names when you create them in the Conversation tool.</li>
- 	<li>In the <strong>User example</strong> field, type the text of a user example for the intent. An example can be any string up to 1024 characters in length. The following might be examples for the <code>#pay_bill</code> intent:
-<ul>
- 	<li><code>I need to pay my bill.</code></li>
- 	<li><code>Pay my account balance</code></li>
- 	<li><code>make a payment</code></li>
-</ul>
-<strong>Important</strong>: Intent names and example text can be exposed in URLs when an application interacts with the service. Do not include sensitive or personal information in these artifacts.
+1. Select the **GitHub** box.
 
-Press Enter or click <strong>+</strong> to save the example.</li>
- 	<li>Repeat the same process to add more examples. Provide at least 5 examples for each intent. The more examples you provide, the more accurate your application can be.
-<p align="center"><img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/define_intent.png" alt="Screen" /></p>
-</li>
- 	<li>When you have finished adding examples, click <strong>Create</strong> to finish creating the intent.</li>
-</ol>
-<h3>Results</h3>
-The intent you created is added to the Intents tab, and the system begins to train itself on the new data.
+1. Decide whether you want to fork/clone the app repository.
 
-You can click any intent in the list to open it for editing. You can make the following changes:
-<ul>
- 	<li>Rename the intent.</li>
- 	<li>Delete the intent.</li>
- 	<li>Add, edit, or delete examples.</li>
- 	<li>Move an example to a different intent.</li>
-</ul>
-To move an example, select the example by clicking the check box and then click <strong>Move to</strong>.
-<p align="center"><img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/move_example.png" alt="“Screen" /></p>
+1. If you decide to Clone, set a name for your GitHub repository.
 
-<h3>Testing your intents</h3>
-After you have finished creating new intents, you can test the system to see if it recognizes your intents as you expect.
-<ol>
- 	<li>In the Conversation tool, click the <img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/ask_watson.png" alt="“Ask" /> icon.</li>
- 	<li>In the Try it out panel, enter a question or other text string and press Enter to see which intent is recognized. If the wrong intent is recognized, you can improve your model by adding this text as an example to the correct intent.<strong>Tip</strong>: If you have recently made changes in your workspace, you might see a message indicating that the system is still retraining. If you see this message, wait until training completes before testing:
-<p align="center"><img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/training.png" alt="Screen" /></p>
-The response indicates which intent was recognized from your input.
-<p align="center"><img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/test_intents.png" alt="Screen" /></p>
-</li>
- 	<li>If the system did not recognize the correct intent, you can correct it. To correct the recognized intent, click the displayed intent and then select the correct intent from the list. After your correction is submitted, the system automatically retrains itself to incorporate the new data.
-<p align="center"><img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/correct_intent.png" alt="Screen" /></p>
-If your intents are not being correctly recognized, consider making the following kinds of changes:
-<ul>
- 	<li>Add the unrecognized text as an example to the correct intent.</li>
- 	<li>Move existing examples from one intent to another.</li>
- 	<li>Consider whether your intents are too similar, and redefine them as appropriate.</li>
-</ul>
-</li>
-</ol>
-<h3>Creating an entity</h3>
-You use the Conversation tool to create entities. The number of entities, entity values, and synonyms you can create in a single service instance depends on your Conversation service plan:
-<ol>
- 	<li>In the Conversation tool, open your workspace and then click the <strong>Entities</strong> tab.</li>
- 	<li>Click <strong>Create new</strong>.</li>
- 	<li>In the <strong>Add the entity name</strong> field, type a descriptive name for the entity.The entity name can contain letters (in Unicode), numbers, underscores, and hyphens. For example:
-<ul>
- 	<li><code>@location</code></li>
- 	<li><code>@menu_item</code></li>
- 	<li><code>@product</code></li>
-</ul>
-<strong>Tips</strong>:
-<ul>
- 	<li>Don’t include the <code>@</code> character in the entity names when you create them in the Conversation tool.</li>
- 	<li>Entity names can’t contain spaces or be longer than 64 characters. And entity names can’t begin with the string <code>sys-</code>, which is reserved for system entities.</li>
-</ul>
-</li>
- 	<li>In the <strong>Value</strong> field, type the text of a possible value for the intent. An entity value can be any string up to 64 characters in length.<strong>Important</strong>: Don’t include sensitive or personal information in entity names or values. The names and values can be exposed in URLs in an app.</li>
- 	<li>In the <strong>Synonyms</strong> field, type any synonyms for the entity value. A synonym can be any string up to 64 characters in length. Press Enter to save each synonym.<img src="https://raw.githubusercontent.com/VidyasagarMSC/WatBot/initial/Images/define_entity.png" alt="Screen" /></li>
- 	<li>Click <strong>+</strong> and repeat the process to add more entity values.</li>
- 	<li>When you are finished adding values and synonyms, click <strong>Create</strong>.</li>
-</ol>
-<h3>Building a Dialog</h3>
-The dialog component of the Conversation service uses the intents and entities that are identified in the user’s input to gather required information and provide a useful response. Your dialog is represented graphically as a tree; create a branch to process each intent that you define.
+1. Select the **Delivery Pipeline** box.
 
-Post branching Intents and entities, this is how my Conversation Dialog on Bluemix looks like
+1. Select the region, organization and space where you want to deploy the app.
 
-![](https://github.com/VidyasagarMSC/WatBot/blob/initial/Images/Conversation_Service_Bluemix.png)
+1. Click **Create**.
 
-## Configure the App
+1. Select the Delivery Pipeline.
 
-  <p>To configure  the App you need to get the Watson Conversation service <strong>Username</strong>, <strong>PassWord</strong> and <strong>WorkSpaceId</strong></p>
+1. Wait for the Deploy job to complete.
 
-* In the <strong>MainActivity</strong> class locate the method named <strong>sendMessage()</strong>.
+1. Access the app when it's ready and start exploring.
+
+## Running the app on Bluemix
+
+1. If you do not already have a Bluemix account, [sign up here][bluemix_signup_url]
+
+1. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
+
+1. Use this command to display or specify the URL of the API endpoint of Bluemix.
+
+    ```
+    cf api https://api.ng.bluemix.net
+    ```
+1. Connect to Bluemix in the command line tool and follow the prompts to log in
 
    ```
-     ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
+   cf login -a https://api.ng.bluemix.net
+   ```
+1. Clone the app to your local environment from your terminal using the following command:
 
-     service.setUsernameAndPassword("Your Watson service UserName", "Your watson service PassWord");
-
-     MessageRequest newMessage = new MessageRequest.Builder().inputText(inputmessage).build();
-
-     MessageResponse response = service.message("Your Workspace Id", newMessage).execute();
+   ```
+   git clone https://github.com/IBM-Bluemix/finance-trade.git
    ```
 
-* Go to the Conversation service , and select the <strong>Service Credentials</strong> tab. Select <strong>password</strong> and <strong>username</strong>.
+1. `cd` into this newly created directory
 
-![Conversation Credentials](https://github.com/VidyasagarMSC/WatBot/blob/initial/Images/usernamePassword.png)
+1. Navigate to manifest.yml file and change the NAME "fintrade" to an unique name of your choice. The new name is your APP_NAME in the commands below.
 
- </p>Add the `password` and `username` in the following code,</p>
+1. Follow the above step for SERVICES as well.
 
- ```
- service.setUsernameAndPassword("Your Watson service UserName", "Your watson service PassWord");
 
- ```
+1. Create services required for this app
+  
+   ```
+   cf create-service discovery lite <Discovery_Service_Name> 
+   ```
+   _Discovery Service Name as mentioned in manifest.yml above_
 
-* Next is to get the <strong>workspace Id</strong>.
+   ```
+   cf create-service fss-portfolio-service fss-portfolio-service-free-plan <Portfolio_Service_Name as in manifest.yml>
+   ```
+   
+   ```
+   cf create-service fss-predictive-scenario-analytics-service fss-predictive-scenario-analytics-service-free-plan <Predictive_Scenario_Name as in manifest.yml>
+   ```
+   ```
+   cf create-service fss-scenario-analytics-service  fss-scenario-analytics-service-free-plan <Scenario_Analytics_Name as in manifest.yml>
+   ```
 
-<p>Launch the conversation service workspace and from the options select the <strong>View details</strong>.</p>
+1. Push the app to Bluemix 
 
-<p align="center">
-<img src="https://github.com/VidyasagarMSC/WatBot/blob/initial/Images/workspace1.png" width="350"> 
-<img src="https://github.com/VidyasagarMSC/WatBot/blob/initial/Images/workspace2.png" width="350">
-</p>
+   ```
+   cf push
+   ```
+ _This command uses the manifest.yml file in your directory to CREATE the app and BIND the services to the app_
 
-<p>Get the <strong>Workspace ID:</strong> and add it in the below code,</p>
+And voila! You now have your very own finance application running on Bluemix.
 
-```
-MessageResponse response = service.message("Your Workspace Id", newMessage).execute();
-```
-Gradle Entry 
+## Run the app locally
 
-```
-compile 'com.ibm.watson.developer_cloud:conversation:3.8.0'
-```
+1. If you do not already have a Bluemix account, [sign up here][bluemix_signup_url]
 
-* Build and Run your app.
+2. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
 
-## Enable Text to Speech 
+3. In the checkout directory, create a file ```.env``` and paste the below snippet
 
-* Create a Watson Text to Speech(TTS) service on [Bluemix](https://console.ng.bluemix.net/catalog/services/text-to-speech/?taxonomyNavigation=apps) 
-* Navigate to Service Credentials tab and click on "View Credentials".
+	```
+	INVESTMENT_PORFOLIO_BASE_URL=investment-portfolio.mybluemix.net
+	INVESTMENT_PORFOLIO_USERNAME=
+	INVESTMENT_PORFOLIO_PASSWORD=
+	
+	DISCOVERY_USERNAME=
+	DISCOVERY_PASSWORD=
+	
+	PREDICTIVE_MARKET_SCENARIOS_URI=fss-analytics.mybluemix.net
+	PREDICTIVE_MARKET_SCENARIOS_ACCESS_TOKEN=
+		
+	SIMULATED_INSTRUMENT_ANALYSIS_URI=fss-analytics.mybluemix.net
+	SIMULATED_INSTRUMENT_ANALYSIS_ACCESS_TOKEN=
+	```
+1. For credentials and access tokens, run this command
+    
+    ```
+    cf env APP_NAME
+    ```
 
-On Line 68 of MainActivity.kt, replace the username and password placeholders with the TTS service credentials
 
-```
-service.setUsernameAndPassword("Your Text-to-Speech service username", "Your Text-to-Speech password");
-```
-* Build and Run your app.
+1. Run
 
-Now when you TAP on any message, the text will be heard via a Voice (Voice.EN_LISA). You can change the voice formats in the code of MainActivity.kt
+   ```
+   npm install
+   ```
 
-<strong>Note: </strong> The required gradle entries for TTS is already included in the build.gradle file 
-```
-compile 'com.ibm.watson.developer_cloud:text-to-speech:3.8.0'
-compile 'com.ibm.watson.developer_cloud:android-sdk:0.2.3'
-```
+1. Run
 
-## Enable Speech to Text
+   ```
+   npm start
+   ```
 
-* Create a Watson Speech-To-Text (STT) service on [Bluemix](https://console.ng.bluemix.net/catalog/services/speech-to-text/?taxonomyNavigation=apps) 
-* Navigate to Service Credentials tab and click on "View Credentials".
-* Add the credentials to config.xml
-* Build and Run your app.
+## Contribute
 
-<strong>Note: </strong> The required gradle entries for STT is already included in the build.gradle file 
-```
-compile 'com.ibm.watson.developer_cloud:speech-to-text:3.8.0'
-compile 'com.ibm.watson.developer_cloud:android-sdk:0.2.3'
-compile 'com.squareup.okhttp3:okhttp-ws:3.4.2'
-```
+If you find a bug, please report it via the [Issues section][issues_url] or even better, fork the project and submit a pull request with your fix! We are more than happy to accept external contributions to this project if they address something noted in an existing issue.  In order to be considered, pull requests must pass the initial [Travis CI][travis_url] build and/or add substantial value to the sample application.
 
-### Chat with your own WatBot 
+## Troubleshooting
 
-If you have followed all the above instructions, you should be happily chatting with your Wat(son)Bot. 
+The primary source of debugging information for your Bluemix app is the logs. To see them, run the following command using the Cloud Foundry CLI:
 
-** Remember your bot will be talking to your Conversation Service (Intents, Entities and Dialog).**
+   ```
+   $ cf logs APP_NAME --recent
+   ```
 
-### Don't stop here!!! Keep coding and using Bluemix
+For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
+
+## License
+
+See [License.txt](License.txt) for license information.
+
+# Privacy Notice
+
+This application is configured to track deployments to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) and other Cloud Foundry platforms. The following information is sent to a [Deployment Tracker](https://github.com/IBM-Bluemix/cf-deployment-tracker-service) service on each deployment:
+
+* Node.js package version
+* Node.js repository URL
+* Application Name (`application_name`)
+* Space ID (`space_id`)
+* Application Version (`application_version`)
+* Application URIs (`application_uris`)
+* Labels of bound services
+* Number of instances for each bound service and associated plan information
+
+This data is collected from the `package.json` file in the application and the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables in IBM Bluemix and other Cloud Foundry platforms. This data is used by IBM to track metrics around deployments of sample applications to IBM Bluemix to measure the usefulness of our examples, so that we can continuously improve the content we offer to you. Only deployments of sample applications that include code to ping the Deployment Tracker service will be tracked.
+
+## Disabling Deployment Tracking
+
+Deployment tracking can be disabled by removing `require("cf-deployment-tracker-client").track();` from the beginning of the `app.js` file.
+
+[bluemix_signup_url]: https://console.bluemix.net/?cm_mmc=GitHubReadMe
+[cloud_foundry_url]: https://github.com/cloudfoundry/cli
+[download_node_url]: https://nodejs.org/download/
+[travis_url]: https://travis-ci.org/

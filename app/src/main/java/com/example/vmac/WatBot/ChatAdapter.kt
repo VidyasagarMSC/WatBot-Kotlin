@@ -61,7 +61,7 @@ class ChatAdapter(private val messageArrayList: ArrayList<Message>) : RecyclerVi
         internal var message: TextView
 
         init {
-            message = itemView.findViewById(R.id.message) as TextView
+            message = itemView.findViewById<TextView>(R.id.message) as TextView
 
             //TODO: Uncomment this if you want to use a custom Font
             /*String customFont = "Montserrat-Regular.ttf";
