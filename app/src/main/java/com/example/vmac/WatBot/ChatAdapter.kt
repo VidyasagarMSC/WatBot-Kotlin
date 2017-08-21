@@ -40,7 +40,7 @@ class ChatAdapter(private val messageArrayList: ArrayList<Message>) : RecyclerVi
 
     override fun getItemViewType(position: Int): Int {
         val message = messageArrayList[position]
-        if (message.id != null && message.id == "1") {
+        if (message.id == "1") {
             return SELF
         }
 

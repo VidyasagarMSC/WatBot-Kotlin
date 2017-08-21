@@ -101,9 +101,9 @@ class MainActivity : AppCompatActivity() {
                     val audioMessage: Message?
                     try {
 
-                        audioMessage = messageArrayList!![position] as Message
+                        audioMessage = messageArrayList!![position]
                         streamPlayer = StreamPlayer()
-                        if (audioMessage != null && audioMessage.message.length>0)
+                        if (audioMessage.message.length>0)
                         //Change the Voice format and choose from the available choices
                             streamPlayer.playStream(service.synthesize(audioMessage.message, Voice.EN_LISA).execute())
                         else
@@ -193,10 +193,9 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 val outMessage = Message()
-                if (response != null) {
                     if (response.output != null && response.output.containsKey("text")) {
                         val responseList = response.output["text"] as ArrayList<*>
-                        if (null != responseList && responseList.size > 0) {
+                        if (responseList.size > 0) {
                             outMessage.message = responseList[0] as String
                             outMessage.id = "2"
                         }
@@ -211,8 +210,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-
-                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
